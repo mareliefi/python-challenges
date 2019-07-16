@@ -8,21 +8,19 @@ def grades_sum(scores):
   for mark in scores:
     total = total + mark
   return total
-  
 
 def grades_mean(scores):
-  mean = grades_sum(scores) / float(len(scores))
+  mean = round(grades_sum(scores) / float(len(scores)),2)
   return mean
   
-
 def grades_median(marks):
-  marks.sort()
-  if len(marks) % 2 == 0:
-    median = float(marks[len(marks)/2] + marks[(len(marks)/2) +1] / 2)
+  marks = sorted(marks)
+  lstLen = len(marks)
+  index = (lstLen - 1) // 2
+  if (lstLen % 2):
+    return marks[index]
   else:
-    median = marks[(len(marks)+1)/2]
-  return median
-  
+    return (marks[index] + marks[index + 1])/2.0
 
 def grades_mode(marks):
   marks.sort()
@@ -41,20 +39,11 @@ def grades_variance(scores):
   average = grades_mean(scores)
   variance = 0
   for score in scores:
-    variance = variance + ((average - score)**2)
-  return (variance/float(len(scores)))
-  
+    variance += (average - score)**2
+  variance = round(variance,2)  
+  return variance
 
 def grades_std_deviation(variance):
-  return (variance ** 0.5)
+  std_deviation = variance ** 0.5
+  return round(std_deviation,2)
   
-grades = [100, 100, 90, 40, 80, 100, 85, 70, 90, 65, 90, 85, 50.5]
-
-print_grades(grades)
-print "Sum of grades: %.2f" % (grades_sum(grades))
-print "Mean of grades: %.2f" % (grades_mean(grades))
-print "Median of grades: %.2f" % (grades_median(grades))
-print "Mode of grades: %d" % (grades_mode(grades))
-print "Grades variance: %.2f" % (grades_variance(grades))
-variance = grades_variance(grades)
-print "Standard deviation of grades: %.2f" % (grades_std_deviation(variance))
